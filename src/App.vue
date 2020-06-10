@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-  测试提交
     <router-view/>
   </div>
 </template>
