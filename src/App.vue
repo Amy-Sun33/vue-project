@@ -1,5 +1,5 @@
 <template>
-  <div id="app">测试 硕大的
+  <div id="app">
     <router-view/>
   </div>
 </template>
