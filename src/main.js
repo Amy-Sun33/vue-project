@@ -6,6 +6,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import VueCookies from 'vue-cookies'
+// import Goods from './pages/Goods.vue'
+
 
 Vue.config.productionTip = false
 import global_func from './util/function.js';
@@ -21,5 +23,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  // render: h => h(Goods)
 })

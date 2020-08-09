@@ -59,11 +59,12 @@
         this.loading = false
         doLogin(params).then(res => {
           if (res.data.status == 0) {
+            console.log('...', JSON.stringify(res.data.powers))
             let user = res.data.user;
             let role = res.data.roles;
             this.$cookies.set('user', res.data.user);
             this.$cookies.set('roles', res.data.roles);
-            this.$cookies.set('menus', res.data.powers);
+            this.$cookies.set('menus', JSON.stringify(res.data.powers));
             if (this.is_rember) {
               this.$cookies.set('account', this.account);
               this.$cookies.set('pwd', this.pwd);
@@ -82,7 +83,6 @@
         getVerifyCode().then(res => {
           this.verifyCodeImg = 'data:image/png;base64,' + res.data;
         })
-        //return this.getImg('http://www.swoft.com/getverifycode?' + Math.random())
       },
     }
   }
