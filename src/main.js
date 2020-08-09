@@ -5,10 +5,16 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
+import VueCookies from 'vue-cookies'
 
 Vue.config.productionTip = false
+import global_func from './util/function.js';
+
 
 Vue.use(ElementUI)
+Vue.use(VueCookies)
+Vue.use(global_func)
+
 
 /* eslint-disable no-new */
 new Vue({
