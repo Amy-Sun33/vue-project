@@ -5,7 +5,7 @@ var base = axios.create({
   // baseURL: 'https://zhihuotech.com/dev',
   baseURL: '',
   withCredentials: true,
-  timeout: 1000
+  timeout: 3000
 })
 
 // 请求拦截器

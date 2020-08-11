@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Login from '@/pages/Login'
-import Goods from '@/pages/Goods'
+import Home from '@/pages/Home'
 import User from '@/pages/User'
 import Power from '@/pages/Power'
 
@@ -16,20 +16,21 @@ export default new Router({
       component: Login
     },
     {
-      path: '/user',
-      name: User,
-      component: User
-    },
-    {
-      path: '/Goods',
-      name: 'Goods',
-      component: Goods
-    },
-    {
-      path: '/Power',
-      name: 'Power',
-      component: Power
-    },
-
+      path: '/Home',
+      name: 'Home',
+      component: Home,
+      children: [
+        {
+          path: '/Home/user',
+          name: User,
+          component: User
+        },
+        {
+          path: '/Home/power',
+          name: 'Power',
+          component: Power
+        },
+      ]
+    }
   ]
 })

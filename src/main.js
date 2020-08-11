@@ -6,16 +6,18 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import VueCookies from 'vue-cookies'
-// import Goods from './pages/Goods.vue'
 
+// Toast
+import './components/Toast/index.css';
+import Toast from './components/Toast/index';
 
 Vue.config.productionTip = false
 import global_func from './util/function.js';
 
-
 Vue.use(ElementUI)
 Vue.use(VueCookies)
 Vue.use(global_func)
+Vue.use(Toast)
 
 
 /* eslint-disable no-new */

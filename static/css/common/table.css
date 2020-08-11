@@ -1,0 +1,17 @@
+.el-table__header-wrapper {
+  height: 100px;
+  line-height: 100px;
+}
+
+.el-pagination {
+  margin-top: 10px;
+}
+
+.has-gutter {
+  height: 80px;
+  line-height: 80px;
+}
+
+.has-gutter tr th {
+  background: #ecf5ff;
+}
