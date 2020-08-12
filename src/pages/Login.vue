@@ -21,7 +21,8 @@
           </div>
         </div>
         <div class="remember-div">
-          <el-checkbox class="checkbox" v-model="is_rember" :checked="is_rember = true" type="checkbox">记住密码</el-checkbox>
+          <el-checkbox class="checkbox" v-model="is_rember" :checked="is_rember = true" type="checkbox">记住密码
+          </el-checkbox>
         </div>
         <div style="">
           <el-button type="primary" native-type="submit" :loading="loading">登&nbsp;录</el-button>
@@ -33,6 +34,7 @@
 </template>
 <script>
   import {doLogin, getVerifyCode} from '../../api/api.js'
+
   let Base64 = require('js-base64').Base64;
   export default {
     name: 'Login',
@@ -58,7 +60,6 @@
         this.loading = false
         doLogin(params).then(res => {
           if (res.data.status == 0) {
-            console.log('...', JSON.stringify(res.data.powers))
             let user = res.data.user;
             let role = res.data.roles;
             this.$cookies.set('user', res.data.user);
@@ -83,10 +84,6 @@
           this.verifyCodeImg = 'data:image/png;base64,' + res.data;
         })
       },
-    },created() {
-      if(this.user.uid != 0){
-        this.$router.push('/Home')
-      }
     }
   }
 </script>

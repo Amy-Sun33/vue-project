@@ -23,7 +23,7 @@ base.interceptors.response.use(function (response) {
 base.requestApi = (url, type) => {
   return (data, params) => {
     const request = type === 'get' ? base.get : base.post
-    return request(url, type === 'get' ? { params: data } : data, params).then(res => {
+    return request(url, type === 'get' ? {params: data} : data, params).then(res => {
       return Promise.resolve(res)
     })
   }

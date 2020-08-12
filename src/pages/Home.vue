@@ -55,7 +55,9 @@
       // 获取菜单
       this.menusList = JSON.parse(this.$cookies.get('menus'));
       this.user = this.$cookies.get('user');
-
+      if (!this.user || !this.user.id) {
+        this.$router.push('/Login')
+      }
       // console.log('kk', this.menusList)
       // console.log('kk', this.$cookies.get('user'))
     },
@@ -70,7 +72,8 @@
         let curRoute = this.$route.path;
         if (curRoute != '/Home' + key) this.$router.push('/Home' + key)
       }
-    }
+    },
+
   }
 </script>
 
@@ -79,12 +82,14 @@
   .el-menu {
     text-align: left;
   }
+
   .el-header, .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
     line-height: 60px;
   }
+
   .el-aside {
     background-color: #545c64;
     color: #333;
@@ -92,12 +97,15 @@
     line-height: 250px;
     overflow-x: hidden;
   }
+
   .el-submenu__title, .el-menu-item-group__title {
     width: 250px;
   }
+
   .el-menu {
     border: none;
   }
+
   .el-main {
     background-color: #E9EEF3;
     color: #333;

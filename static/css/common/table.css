@@ -1,10 +1,7 @@
+/*表格样式*/
 .el-table__header-wrapper {
   height: 100px;
   line-height: 100px;
-}
-
-.el-pagination {
-  margin-top: 10px;
 }
 
 .has-gutter {
@@ -15,3 +12,29 @@
 .has-gutter tr th {
   background: #ecf5ff;
 }
+
+/*表格样式*/
+
+/*分页样式*/
+.el-pagination {
+  margin-top: 10px;
+}
+
+/*分页样式*/
+
+/*表格搜索框样式*/
+.s-form {
+  display: flex;
+}
+
+.s-input-item {
+  width: 300px;
+  display: flex;
+}
+
+.s-form button {
+  height: 40px;
+}
+
+/*表格搜索框样式*/
+
