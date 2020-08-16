@@ -25,87 +25,46 @@
         <el-button type="success" @click="exportExcel">导出excel</el-button>
       </el-form>
     </div>
-    <el-table
-      :data="list"
-      style="width: 100%"
-      @sort-change="sortChange"
-      sortable="custom">
-      <el-table-column
-        label="id"
-        prop="id"
-        sortable
-        width="120">
-      </el-table-column>
 
-      <el-table-column
-        label="账号"
-        sortable
-        prop="account"
-        width="180">
-      </el-table-column>
-
-      <el-table-column
-        label="姓名"
-        prop="username"
-        sortable
-        width="180">
-      </el-table-column>
-
-      <el-table-column
-        label="手机号"
-        sortable
-        prop="mobile"
-        width="180">
-      </el-table-column>
-
-      <el-table-column
-        label="状态"
-        prop="status_str"
-        width="180">
-      </el-table-column>
-
-      <el-table-column
-        label="创建时间"
-        prop="createTime"
-        width="180">
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑
-          </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            v-popover:popover5
-            @click="delUser(scope.$index, scope.row)">删除
-          </el-button>
-          <el-button
-            v-if="scope.row.status == 2"
-            size="mini"
-            type="warning"
-            @click="frozenUser(scope.$index, scope.row)">解封
-          </el-button>
-
-          <el-button
-            v-if="scope.row.status == 0"
-            size="mini"
-            type="warning"
-            @click="frozenUser(scope.$index, scope.row)">冻结
-          </el-button>
-
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      background
-      layout="prev, pager, next"
+    <page-table
+      ref="pagingTable"
+      :tableData="list"
+      :propsData="propsTable"
       :total="totalNum"
-      :page-size="pageSize"
-      @current-change="changePage">
-    </el-pagination>
+      @currentChange="handleCurrentChange"
+      @sizeChange="handleSizeChange"
+    >
+      <template slot="insertAfter">
+        <el-table-column label="操作" width="260">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)">编辑
+            </el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              v-popover:popover5
+              @click="delUser(scope.$index, scope.row)">删除
+            </el-button>
+            <el-button
+              v-if="scope.row.status == 2"
+              size="mini"
+              type="warning"
+              @click="frozenUser(scope.$index, scope.row)">解封
+            </el-button>
+
+            <el-button
+              v-if="scope.row.status == 0"
+              size="mini"
+              type="warning"
+              @click="frozenUser(scope.$index, scope.row)">冻结
+            </el-button>
+          </template>
+        </el-table-column>
+      </template>
+    </page-table>
+
     <el-dialog class="pub_dialog" width="40%" title="添加/编辑用户信息" :visible.sync="dialogFormVisible">
       <div>
         <el-form :model="editFrom">
@@ -133,7 +92,9 @@
 <script>
   import {userList, frozenuser, delUser, edituser} from "../../api/api.js";
 
+  import pageTable from '@/components/common/pageTable'
   export default {
+    components: { pageTable },
     data() {
       return {
         list: [],
@@ -165,10 +126,45 @@
             text: '冻结',
             val: 2
           },
+        ],
+        propsTable: [
+          {
+            label: 'id',
+            prop: 'id',
+            sortable: true
+          },
+          {
+            label: '账号',
+            prop: 'account'
+          },
+          {
+            label: '姓名',
+            prop: 'username'
+          },
+          {
+            label: '手机号',
+            prop: 'mobile'
+          },
+          {
+            label: '状态',
+            prop: 'status_str'
+          },
+          {
+            label: '创建时间',
+            prop: 'createTime'
+          }
         ]
       }
     },
     methods: {
+      handleCurrentChange(val) {
+        console.log('当前页码', val)
+        this.getList()
+      },
+      handleSizeChange(val) {
+        console.log('每页条数', val)
+        this.getList()
+      },
       handleEdit(index, row) {
         this.dialogFormVisible = true;
         this.editFrom.account = row.account
@@ -194,9 +190,11 @@
         this.is_export = 0
       },
       getList() {
+        let pageArgs = this.$refs.pagingTable.getPageInfo()
+        console.log('??', pageArgs)
         let params = {
-          page_size: this.pageSize,
-          page: this.curPage,
+          page_size: pageArgs.pageSize,
+          page: pageArgs.pageCurrent,
           s_status: this.s_status,
           s_account: this.s_account,
           s_name: this.s_name,
@@ -267,7 +265,7 @@
         })
       },
     },
-    created() {
+    mounted() {
       this.getList();
     }
   }
